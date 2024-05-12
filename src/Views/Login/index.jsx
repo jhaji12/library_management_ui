@@ -93,7 +93,7 @@ export const LoginForm = ({ onLogin }) => {
               </Button>
             </Flex>
           </FormControl>
-          {loginType === "Librarian" && ( // Render username and password fields only for Librarian login
+          {loginType === "Librarian" && (
             <>
               <FormControl>
                 <FormLabel>Username</FormLabel>

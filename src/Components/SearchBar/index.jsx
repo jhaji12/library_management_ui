@@ -6,7 +6,6 @@ import {
   InputRightElement,
   useTheme,
 } from "@chakra-ui/react";
-import { useState } from "react";
 import { MdSearch } from "react-icons/md";
 
 export const Search = ({

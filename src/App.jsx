@@ -1,12 +1,13 @@
 import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { Overview, Books, Members, LoginForm } from "./Views";
 import { Box, Flex } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { Appbar, Sidebar } from "./Components";
 
 const App = () => {
-  const [activeState, setActiveState] = useState(window.location.pathname);
+  const location = useLocation();
+  const [activeState, setActiveState] = useState(location.pathname.split("/").pop() || "/overview");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -28,7 +29,7 @@ const App = () => {
     // Clear user-related data from localStorage or state
     localStorage.removeItem("token");
     setIsLoggedIn(false);
-    return <Navigate to="/login" />;
+    <Navigate to="/login" />;
   };
 
   return (
@@ -44,11 +45,10 @@ const App = () => {
             />
             <Box flex={1}>
               <Routes>
-                <Route path="/overview" element={<Overview />} />
-                <Route path="/books" element={<Books />} />
-                <Route path="/Members" element={<Members />} />
-                <Route path="*" element={<Navigate to="/overview" />} />
-                <Route path="/logout" element={handleLogout} />
+                <Route path="/C:/overview" element={<Overview />} />
+                <Route path="/C:/books" element={<Books />} />
+                <Route path="/C:/members" element={<Members />} />
+                <Route path="*" element={<Overview />} />
               </Routes>
             </Box>
           </Flex>

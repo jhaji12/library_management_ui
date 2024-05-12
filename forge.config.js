@@ -1,35 +1,35 @@
 const { FusesPlugin } = require("@electron-forge/plugin-fuses");
 const { FuseV1Options, FuseVersion } = require("@electron/fuses");
+const path = require("path");
 
 module.exports = {
   packagerConfig: {
     asar: true,
+    icon: "./src/Resources/icon",
   },
   rebuildConfig: {},
   makers: [
     {
       name: "@electron-forge/maker-squirrel",
       config: {
+        name: "library_management_ui",
         authors: "Jyoti Jha",
         description: "Libraray Management System",
-        certificateFile: "./cert.pfx",
-        certificatePassword: process.env.CERTIFICATE_PASSWORD,
       },
     },
+  ],
+  publishers: [
     {
-      name: "@electron-forge/maker-zip",
-      platforms: ["darwin", "linux"],
+      name: "@electron-forge/publisher-github",
       config: {
-        // Config here
+        repository: {
+          owner: "jhaji12",
+          name: "library_management_ui",
+          setupIcon: "./src/Resources/icon.ico",
+        },
+        token: process.env.GITHUB_TOKEN,
+        prerelease: true,
       },
-    },
-    {
-      name: "@electron-forge/maker-deb",
-      config: {},
-    },
-    {
-      name: "@electron-forge/maker-rpm",
-      config: {},
     },
   ],
   plugins: [

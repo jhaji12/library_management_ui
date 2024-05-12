@@ -13,12 +13,11 @@ import {
   OverdueBooksTable,
   LendModal,
   ReturnModal,
-} from "../../Components";
+} from "../../Components/index.js";
 import { FaFileExport } from "react-icons/fa";
-import { AiOutlineRise, AiOutlineFall } from "react-icons/ai";
 import { FaUsers } from "react-icons/fa";
 import { useState, useEffect } from "react";
-import { ApiService } from "../../Services/datasetAPIService";
+import { ApiService } from "../../Services/datasetAPIService.js";
 
 export const Overview = () => {
   const toast = useToast();
@@ -43,7 +42,7 @@ export const Overview = () => {
   // Function to fetch books data
   const fetchBooks = async () => {
     try {
-      const issuedData = await ApiService.issues.getAllIssues();
+      const issuedData = await ApiService.issues.getLendBooks();
       setIssuedlist(issuedData);
     } catch (error) {
       console.error("Error fetching issued books:", error);
@@ -276,7 +275,7 @@ export const Overview = () => {
       <Divider my={4} />
 
       <Flex gap={4} flexDir="column">
-        <Text variant="body2semiBold">Recently Issued Books</Text>
+        <Text variant="body2semiBold">Recently Borrowed Books</Text>
         <OverdueBooksTable data={issuedlist} />
       </Flex>
       <LendModal

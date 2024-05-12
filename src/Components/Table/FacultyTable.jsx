@@ -24,7 +24,6 @@ export const FacultyTable = ({ data }) => {
           <Tr>
             <Th>Name</Th>
             <Th>Faculty Id</Th>
-            <Th>Books Issued</Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -32,7 +31,6 @@ export const FacultyTable = ({ data }) => {
             <Tr>
               <Td>{item.name}</Td>
               <Td>{item.faculty_id}</Td>
-              <Td>{item.books_issued}</Td>
             </Tr>
           ))}
         </Tbody>

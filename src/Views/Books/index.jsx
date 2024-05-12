@@ -198,23 +198,27 @@ export const Books = () => {
       } else {
         // If search query is not empty, filter books based on search query
         const response = await ApiService.books.getAll();
-        const filteredBook = response.filter(
-          (book) => book.book_id === searchQuery
+        const filteredBooks = response.filter((book) =>
+          Object.values(book).some(
+            (value) =>
+              typeof value === "string" &&
+              value.toLowerCase().includes(searchQuery.toLowerCase())
+          )
         );
-        setBooks(filteredBook);
+        setBooks(filteredBooks);
       }
     } catch (error) {
-      console.error("Error fetching book details:", error);
+      console.error("Error searching books:", error);
       toast({
-        title: "Error Searching Book",
-        description: "An error occurred while searching for the book.",
+        title: "Error Searching Books",
+        description: "An error occurred while searching for books.",
         status: "error",
         duration: 3000,
         isClosable: true,
       });
     }
   };
-
+  
   // Fetch data on initial component mount
   useEffect(() => {
     fetchBooks();
@@ -277,7 +281,7 @@ export const Books = () => {
           justifyContent={"center"}
         >
           <Search
-            placeholder={`Search book details by Book Id`}
+            placeholder={`Search book details`}
             onSearch={handleSearch}
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}

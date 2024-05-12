@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Text, Flex, Icon, Button } from "@chakra-ui/react";
 import { FaBook, FaUsers, FaChartBar } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
-import { ApiService } from "../../Services/datasetAPIService";
 
 export const Sidebar = ({ activeState, setActiveState, handleLogout }) => {
   const location = useLocation();
@@ -27,13 +26,13 @@ export const Sidebar = ({ activeState, setActiveState, handleLogout }) => {
   ];
 
   useEffect(() => {
-    const currentPath = location.pathname || "/overview";
+    const currentPath =  location.pathname.split("/").pop() || "/overview";
     // Check if the current path is a valid menu link
-    const isValidMenuLink = menus.some((menu) => menu.link === currentPath);
+    const isValidMenuLink = menus.some((menu) => menu.link === `/${currentPath}`);
 
     // Set active state only if the current path is a valid menu link
     if (isValidMenuLink) {
-      setActiveState(currentPath);
+      setActiveState(`/${currentPath}`);
     } else {
       // If the current path is not a valid menu link, set it to the default
       setActiveState("/overview");

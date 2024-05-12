@@ -28,12 +28,14 @@ export const Overview = () => {
   const [totalMembers, setTotalMembers] = useState(0); // State for total members
 
   const [formData, setFormData] = useState({
-    book_id: "", // Initialize with empty values
+    book_id: "",
     issuer_id: "",
     is_student: true,
+    days: 7,
+    fine: 5,
   });
   const [returnData, setReturnData] = useState({
-    book_id: "", // Initialize with empty values
+    book_id: "",
     issuer_id: "",
     is_student: true,
   });
@@ -114,7 +116,13 @@ export const Overview = () => {
     try {
       const response = await ApiService.issues.addIssue(formData);
       // Reset form and state
-      setFormData({ book_id: "", issuer_id: "", is_student: true });
+      setFormData({
+        book_id: "",
+        issuer_id: "",
+        is_student: true,
+        days: 7,
+        fine: 5,
+      });
       setErrorMessage("");
       setLendModal({ open: false, data: null });
       toast({

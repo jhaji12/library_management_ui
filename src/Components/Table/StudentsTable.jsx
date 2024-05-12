@@ -6,7 +6,6 @@ import {
   Tr,
   Th,
   Td,
-  Text,
   TableContainer,
 } from "@chakra-ui/react";
 
@@ -25,7 +24,6 @@ export const StudentsTable = ({ data }) => {
             <Th>Student Name</Th>
             <Th>Admission Number</Th>
             <Th>Class</Th>
-            {/* <Th>Books Issued</Th> */}
           </Tr>
         </Thead>
         <Tbody>
@@ -34,7 +32,6 @@ export const StudentsTable = ({ data }) => {
               <Td>{item.name}</Td>
               <Td>{item.adm_number}</Td>
               <Td>{item.school_class}</Td>
-              {/* <Td>{item.books_issued}</Td> */}
             </Tr>
           ))}
         </Tbody>

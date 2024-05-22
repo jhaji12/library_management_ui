@@ -7,7 +7,9 @@ import { Appbar, Sidebar } from "./Components";
 
 const App = () => {
   const location = useLocation();
-  const [activeState, setActiveState] = useState(location.pathname.split("/").pop() || "/overview");
+  const [activeState, setActiveState] = useState(
+    location.pathname.split("/").pop() || "/overview"
+  );
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -45,9 +47,9 @@ const App = () => {
             />
             <Box flex={1}>
               <Routes>
-                <Route path="/C:/overview" element={<Overview />} />
-                <Route path="/C:/books" element={<Books />} />
-                <Route path="/C:/members" element={<Members />} />
+                <Route path="/overview" element={<Overview />} />
+                <Route path="/books" element={<Books />} />
+                <Route path="/members" element={<Members />} />
                 <Route path="*" element={<Overview />} />
               </Routes>
             </Box>

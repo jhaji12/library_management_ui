@@ -12,4 +12,5 @@ export { ReturnModal } from "./ReturnModal/index.jsx";
 export { AddBookModal } from "./AddBook/index.jsx";
 export { EditBookModal } from "./EditBook/index.jsx";
 export { AddMemberModal } from "./AddMember/index.jsx";
+export { EditMemberModal } from "./EditMember/index.jsx";
 export { StudentDetailsModal } from "./StudentDetailsModal/index.jsx";

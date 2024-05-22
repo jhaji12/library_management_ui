@@ -53,7 +53,7 @@ export const BooksTable = ({
               <Td>{item.publication}</Td>
               <Td>{item.shelf_name}</Td>
               <Td>{item.available_copies}</Td>
-              <Th>
+              <Td>
                 <Flex gap={2} py={1} bgColor={"gray.100"}>
                   <IconButton
                     cursor="pointer"
@@ -78,7 +78,7 @@ export const BooksTable = ({
                     onClick={() => handleDeleteBook(item.book_id)}
                   />
                 </Flex>
-              </Th>
+              </Td>
             </Tr>
           ))}
         </Tbody>

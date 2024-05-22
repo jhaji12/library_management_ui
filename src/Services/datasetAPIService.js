@@ -67,7 +67,7 @@ export const ApiService = {
     },
     getBookById: async (bookId) => {
       try {
-        const response = await axios.get(`${BASE_URL}/books/${bookId}`);
+        const response = await axios.get(`${BASE_URL}/books/${bookId}/`);
         return response.data;
       } catch (error) {
         throw error;
@@ -209,6 +209,14 @@ export const ApiService = {
         throw error;
       }
     },
+    getStudentById: async (studentId) => {
+      try {
+        const response = await axios.get(`${BASE_URL}/students/${studentId}/`);
+        return response.data;
+      } catch (error) {
+        throw error;
+      }
+    },
     addMember: async (memberData) => {
       try {
         const token = localStorage.getItem("token");
@@ -226,7 +234,39 @@ export const ApiService = {
         throw error;
       }
     },
-    // Add more student API methods as needed
+    editStudent: async (studentData) => {
+      try {
+        const token = localStorage.getItem("token");
+        const config = {
+          method: "PUT",
+          url: `${BASE_URL}/students/${studentData.adm_number}/edit/`,
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+          data: studentData,
+        };
+        const response = await axios(config);
+        return response.data;
+      } catch (error) {
+        throw error;
+      }
+    },
+    deleteStudent: async (bookId) => {
+      try {
+        const token = localStorage.getItem("token");
+        const config = {
+          method: "DELETE",
+          url: `${BASE_URL}/students/${bookId}/delete/`,
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        };
+        const response = await axios(config);
+        return response.data;
+      } catch (error) {
+        throw error;
+      }
+    },
   },
 
   // Faculty API

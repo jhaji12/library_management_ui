@@ -64,7 +64,13 @@ export const Members = () => {
       fetchFaculties();
     } catch (error) {
       console.error("Error adding Member:", error);
-      // Handle error
+      toast({
+        title: "Error adding member",
+        description: error?.response?.data?.error,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
     }
   };
 
@@ -77,6 +83,13 @@ export const Members = () => {
       setEditMemberModal({ open: true, data: studentDetails });
     } catch (error) {
       console.error("Error fetching student details:", error);
+      toast({
+        title: "Error fetching student details",
+        description: error?.response?.data?.error,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
     }
   };
 
@@ -103,7 +116,13 @@ export const Members = () => {
       fetchFaculties();
     } catch (error) {
       console.error("Error updating member:", error);
-      // Handle error
+      toast({
+        title: "Error updating member",
+        description: error?.response?.data?.error,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
     }
   };
 
@@ -122,7 +141,13 @@ export const Members = () => {
       console.log("Member deleted successfully");
     } catch (error) {
       console.error("Error deleting member:", error);
-      // Handle error
+      toast({
+        title: "Error deleting member",
+        description: error?.response?.data?.error,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
     }
   };
 
@@ -133,6 +158,13 @@ export const Members = () => {
       setStudents(studentsData);
     } catch (error) {
       console.error("Error fetching students:", error);
+      toast({
+        title: "Error fetching students",
+        description: error?.response?.data?.error,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
     }
   };
 
@@ -143,6 +175,13 @@ export const Members = () => {
       setFaculties(facultiesData);
     } catch (error) {
       console.error("Error fetching faculties:", error);
+      toast({
+        title: "Error fetching faculties",
+        description: error?.response?.data?.error,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
     }
   };
 

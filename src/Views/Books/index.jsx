@@ -96,7 +96,7 @@ export const Books = () => {
       console.error("Error editing book:", error);
       toast({
         title: "Error Editing Book",
-        description: "An error occurred while editing the book.",
+        description: error?.response?.data?.error,
         status: "error",
         duration: 3000,
         isClosable: true,
@@ -132,7 +132,7 @@ export const Books = () => {
       console.error("Error adding book:", error);
       toast({
         title: "Error Adding Book",
-        description: "An error occurred while adding the book.",
+        description: error?.response?.data?.error,
         status: "error",
         duration: 3000,
         isClosable: true,
@@ -147,6 +147,13 @@ export const Books = () => {
       setBooks(booksData);
     } catch (error) {
       console.error("Error fetching books:", error);
+      toast({
+        title: "Error fetching book",
+        description: error?.response?.data?.error,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
     }
   };
 
@@ -157,6 +164,13 @@ export const Books = () => {
       setLent(lentData);
     } catch (error) {
       console.error("Error fetching issued books:", error);
+      toast({
+        title: "Error fetching issued books:",
+        description: error?.response?.data?.error,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
     }
   };
 
@@ -166,7 +180,14 @@ export const Books = () => {
       const returnedData = await ApiService.issues.getReturnedBooks();
       setReturned(returnedData);
     } catch (error) {
-      console.error("Error fetching issued books:", error);
+      console.error("Error fetching returned books:", error);
+      toast({
+        title: "Error fetching returned books:",
+        description: error?.response?.data?.error,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
     }
   };
 
@@ -185,7 +206,7 @@ export const Books = () => {
       console.error("Error deleting book:", error);
       toast({
         title: "Error Deleting Book",
-        description: "An error occurred while deleting the book.",
+        description: error?.response?.data?.error,
         status: "error",
         duration: 3000,
         isClosable: true,
@@ -214,7 +235,7 @@ export const Books = () => {
       console.error("Error searching books:", error);
       toast({
         title: "Error Searching Books",
-        description: "An error occurred while searching for books.",
+        description: error?.response?.data?.error,
         status: "error",
         duration: 3000,
         isClosable: true,

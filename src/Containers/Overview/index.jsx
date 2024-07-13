@@ -49,8 +49,8 @@ export const Overview = () => {
     } catch (error) {
       console.error("Error fetching issued books:", error);
       toast({
-        title: "Error",
-        description: "Failed to fetch issued books",
+        title: "Error fetching issued books",
+        description: error?.response?.data?.error,
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -70,8 +70,8 @@ export const Overview = () => {
     } catch (error) {
       console.error("Error fetching total overdue books:", error);
       toast({
-        title: "Error",
-        description: "Failed to fetch total overdue books",
+        title: "Error fetching total overdue books:",
+        description: error?.response?.data?.error,
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -88,8 +88,8 @@ export const Overview = () => {
     } catch (error) {
       console.error("Error fetching total members:", error);
       toast({
-        title: "Error",
-        description: "Failed to fetch total members",
+        title: "Failed to fetch total members",
+        description: error?.response?.data?.error,
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -142,10 +142,11 @@ export const Overview = () => {
       setErrorMessage(
         error.message || "An error occurred while issuing the book."
       );
+      
       toast({
         title: "Error",
         description:
-          error.message || "An error occurred while issuing the book.",
+          error?.response?.data?.error,
         status: "error",
         duration: 5000,
         isClosable: true,

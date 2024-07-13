@@ -43,6 +43,13 @@ export const LoginForm = ({ onLogin }) => {
       }
     } catch (error) {
       console.error("Login failed:", error);
+      toast({
+        title: "Error logging in",
+        description: error?.response?.data?.error,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
     }
   };
 

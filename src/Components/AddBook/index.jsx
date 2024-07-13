@@ -96,6 +96,15 @@ export const AddBookModal = ({
               placeholder="Enter available copies"
             />
           </Box>
+          <Box mb={4}>
+            <Text>ISBN Code:</Text>
+            <Input
+              name="isbn"
+              value={bookDetails?.isbn}
+              onChange={handleInputChange}
+              placeholder="Enter isbn code"
+            />
+          </Box>
         </ModalBody>
         <ModalFooter>
           <Button mr={3} onClick={handleSubmit}>

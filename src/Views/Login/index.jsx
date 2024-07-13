@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import {
   Input,
+  InputGroup,
+  InputRightElement,
   Button,
   FormControl,
   FormLabel,
@@ -8,7 +10,9 @@ import {
   Box,
   Text,
   Image,
+  IconButton,
 } from "@chakra-ui/react";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import axios from "axios";
 import { constants } from "../../constants";
 import School from "../../Resources/school.jpg";
@@ -19,6 +23,7 @@ export const LoginForm = ({ onLogin }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loginType, setLoginType] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async () => {
     try {
@@ -31,7 +36,9 @@ export const LoginForm = ({ onLogin }) => {
           password,
         });
         const token = response.data.token;
+        const school_level = response.data.school_level;
         localStorage.setItem("token", token);
+        localStorage.setItem("school_level", school_level);
         onLogin(token);
       }
     } catch (error) {
@@ -105,11 +112,20 @@ export const LoginForm = ({ onLogin }) => {
               </FormControl>
               <FormControl>
                 <FormLabel>Password</FormLabel>
-                <Input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
+                <InputGroup>
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <InputRightElement>
+                    <IconButton
+                      variant="outlined"
+                      icon={showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+                      onClick={() => setShowPassword(!showPassword)}
+                    />
+                  </InputRightElement>
+                </InputGroup>
               </FormControl>
             </>
           )}

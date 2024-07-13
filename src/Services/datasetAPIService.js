@@ -14,6 +14,8 @@ export const ApiService = {
         },
       };
       const response = await axios(config);
+      localStorage.removeItem("token");
+      localStorage.removeItem("school_level");
       return response.data;
     } catch (error) {
       throw error;
@@ -21,7 +23,11 @@ export const ApiService = {
   },
   getTotalBorrowedBooks: async () => {
     try {
-      const response = await axios.get(`${BASE_URL}/issues/all/`);
+      const response = await axios.get(`${BASE_URL}/issues/all/`, {
+        headers: {
+          "School-Level": localStorage.getItem("school_level"),
+        },
+      });
       return response.data.results.length; // Assuming each item represents a borrowed book
     } catch (error) {
       throw error;
@@ -31,7 +37,11 @@ export const ApiService = {
   // New function to get the total number of overdue books
   getTotalOverdueBooks: async () => {
     try {
-      const response = await axios.get(`${BASE_URL}/issues/all/`);
+      const response = await axios.get(`${BASE_URL}/issues/all/`, {
+        headers: {
+          "School-Level": localStorage.getItem("school_level"),
+        },
+      });
       const today = new Date();
       const overdueBooks = response.data.results.filter(
         (issue) => new Date(issue.due_date) < today
@@ -59,7 +69,11 @@ export const ApiService = {
   books: {
     getAll: async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/books/`);
+        const response = await axios.get(`${BASE_URL}/books/`, {
+          headers: {
+            "School-Level": localStorage.getItem("school_level"),
+          },
+        });
         return response.data.results;
       } catch (error) {
         throw error;
@@ -67,7 +81,11 @@ export const ApiService = {
     },
     getBookById: async (bookId) => {
       try {
-        const response = await axios.get(`${BASE_URL}/books/${bookId}/`);
+        const response = await axios.get(`${BASE_URL}/books/${bookId}/`, {
+          headers: {
+            "School-Level": localStorage.getItem("school_level"),
+          },
+        });
         return response.data;
       } catch (error) {
         throw error;
@@ -82,6 +100,7 @@ export const ApiService = {
           url: `${BASE_URL}/books/add/`,
           headers: {
             Authorization: `Token ${token}`,
+            "School-Level": localStorage.getItem("school_level"),
           },
           data: bookData,
         };
@@ -99,6 +118,7 @@ export const ApiService = {
           url: `${BASE_URL}/books/${bookData.book_id}/edit/`,
           headers: {
             Authorization: `Token ${token}`,
+            "School-Level": localStorage.getItem("school_level"),
           },
           data: bookData,
         };
@@ -116,6 +136,7 @@ export const ApiService = {
           url: `${BASE_URL}/books/${bookId}/delete/`, // Assuming the API endpoint for deleting a book is `/books/{id}/`
           headers: {
             Authorization: `Token ${token}`,
+            "School-Level": localStorage.getItem("school_level"),
           },
         };
         const response = await axios(config);
@@ -130,7 +151,11 @@ export const ApiService = {
   issues: {
     getAllIssues: async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/issues/all/`);
+        const response = await axios.get(`${BASE_URL}/issues/all/`, {
+          headers: {
+            "School-Level": localStorage.getItem("school_level"),
+          },
+        });
         return response.data.results;
       } catch (error) {
         throw error;
@@ -138,7 +163,11 @@ export const ApiService = {
     },
     getLendBooks: async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/issue/`);
+        const response = await axios.get(`${BASE_URL}/issue/`, {
+          headers: {
+            "School-Level": localStorage.getItem("school_level"),
+          },
+        });
         return response.data.results;
       } catch (error) {
         throw error;
@@ -146,7 +175,11 @@ export const ApiService = {
     },
     getReturnedBooks: async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/return/`);
+        const response = await axios.get(`${BASE_URL}/return/`, {
+          headers: {
+            "School-Level": localStorage.getItem("school_level"),
+          },
+        });
         return response.data.results;
       } catch (error) {
         throw error;
@@ -171,6 +204,7 @@ export const ApiService = {
           url: `${BASE_URL}/issue/add/`,
           headers: {
             Authorization: `Token ${token}`,
+            "School-Level": localStorage.getItem("school_level"),
           },
           data: issueData,
         };
@@ -188,6 +222,7 @@ export const ApiService = {
           url: `${BASE_URL}/return/add/`,
           headers: {
             Authorization: `Token ${token}`,
+            "School-Level": localStorage.getItem("school_level"),
           },
           data: returnData,
         };
@@ -203,7 +238,11 @@ export const ApiService = {
   students: {
     getAll: async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/students`);
+          const response = await axios.get(`${BASE_URL}/students`, {
+          headers: {
+            "School-Level": localStorage.getItem("school_level"),
+          },
+        });
         return response.data.results;
       } catch (error) {
         throw error;
@@ -211,7 +250,11 @@ export const ApiService = {
     },
     getStudentById: async (studentId) => {
       try {
-        const response = await axios.get(`${BASE_URL}/students/${studentId}/`);
+        const response = await axios.get(`${BASE_URL}/students/${studentId}/`, {
+          headers: {
+            "School-Level": localStorage.getItem("school_level"),
+          },
+        });
         return response.data;
       } catch (error) {
         throw error;
@@ -225,6 +268,7 @@ export const ApiService = {
           url: `${BASE_URL}/students/add/`,
           headers: {
             Authorization: `Token ${token}`,
+            "School-Level": localStorage.getItem("school_level"),
           },
           data: memberData,
         };
@@ -242,6 +286,7 @@ export const ApiService = {
           url: `${BASE_URL}/students/${studentData.adm_number}/edit/`,
           headers: {
             Authorization: `Token ${token}`,
+            "School-Level": localStorage.getItem("school_level"),
           },
           data: studentData,
         };
@@ -259,6 +304,7 @@ export const ApiService = {
           url: `${BASE_URL}/students/${bookId}/delete/`,
           headers: {
             Authorization: `Token ${token}`,
+            "School-Level": localStorage.getItem("school_level"),
           },
         };
         const response = await axios(config);
@@ -273,7 +319,11 @@ export const ApiService = {
   faculty: {
     getAll: async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/faculty`);
+        const response = await axios.get(`${BASE_URL}/faculty`, {
+          headers: {
+            "School-Level": localStorage.getItem("school_level"),
+          },
+      });
         return response.data.results;
       } catch (error) {
         throw error;
@@ -287,6 +337,7 @@ export const ApiService = {
           url: `${BASE_URL}/faculty/add/`,
           headers: {
             Authorization: `Token ${token}`,
+            "School-Level": localStorage.getItem("school_level"),
           },
           data: memberData,
         };

@@ -41,6 +41,7 @@ export const Books = () => {
     publication: "",
     shelf_name: "",
     available_copies: 0,
+    isbn: "",
   });
 
   const handleInputChange = (e) => {
@@ -105,6 +106,7 @@ export const Books = () => {
 
   const handleSubmit = async () => {
     try {
+      bookDetails.school = localStorage.getItem("school_level");
       const response = await ApiService.books.addBook(bookDetails);
       console.log("Book added successfully:", response);
       setBookDetails({
@@ -115,6 +117,7 @@ export const Books = () => {
         publication: "",
         shelf_name: "",
         available_copies: 0,
+        isbn: ""
       });
       setAddBookModal({ open: false, data: null });
       fetchBooks();

@@ -45,6 +45,7 @@ export const Members = () => {
   const handleSubmit = async () => {
     try {
       // Make API call to add the book
+      memberDetails.school = localStorage.getItem("school_level");
       const response =
         memberDetails.member_type === "student"
           ? await ApiService.students.addMember(memberDetails)
@@ -60,7 +61,7 @@ export const Members = () => {
       // Close the modal
       setAddMemberModal({ open: false, data: null });
       fetchStudents();
-      fetchFaculties;
+      fetchFaculties();
     } catch (error) {
       console.error("Error adding Member:", error);
       // Handle error
@@ -73,7 +74,7 @@ export const Members = () => {
         studentId
       );
       setMemberDetails(studentDetails);
-      setAddMemberModal({ open: true, data: studentDetails });
+      setEditMemberModal({ open: true, data: studentDetails });
     } catch (error) {
       console.error("Error fetching student details:", error);
     }
@@ -96,7 +97,7 @@ export const Members = () => {
         school_class: "",
       });
       // Close the modal
-      setAddMemberModal({ open: false, data: null });
+      setEditMemberModal({ open: false, data: null });
       // Refetch the list of students or faculties to update the UI
       fetchStudents();
       fetchFaculties();

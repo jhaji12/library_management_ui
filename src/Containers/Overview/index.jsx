@@ -114,6 +114,7 @@ export const Overview = () => {
   const handleIssueSubmit = async (e) => {
     e.preventDefault();
     try {
+      formData.school = localStorage.getItem("school_level")
       const response = await ApiService.issues.addIssue(formData);
       // Reset form and state
       setFormData({
@@ -125,6 +126,9 @@ export const Overview = () => {
       });
       setErrorMessage("");
       setLendModal({ open: false, data: null });
+      fetchTotalOverdueBooks();
+      fetchTotalMembers();
+      fetchBooks();
       toast({
         title: "Success",
         description: "Book issued successfully",
@@ -152,6 +156,7 @@ export const Overview = () => {
   const handleReturnSubmit = async (e) => {
     e.preventDefault();
     try {
+      returnData.school = localStorage.getItem("school_level")
       const response = await ApiService.issues.returnIssue(returnData);
       // Handle success response
       console.log("Book returned successfully:", response);
@@ -159,6 +164,9 @@ export const Overview = () => {
       setFormData({ book_id: "", issuer_id: "", is_student: true });
       setErrorMessage("");
       setReturnModal({ open: false, data: null });
+      fetchTotalOverdueBooks();
+      fetchTotalMembers();
+      fetchBooks();
       toast({
         title: "Success",
         description: "Book returned successfully",

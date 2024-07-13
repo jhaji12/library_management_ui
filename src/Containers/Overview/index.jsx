@@ -184,7 +184,7 @@ export const Overview = () => {
       toast({
         title: "Error",
         description:
-          error.message || "An error occurred while returning the book.",
+        error?.response?.data?.error,
         status: "error",
         duration: 5000,
         isClosable: true,

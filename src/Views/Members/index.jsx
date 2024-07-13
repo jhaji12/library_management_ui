@@ -7,6 +7,7 @@ import {
   TabPanel,
   Flex,
   Button,
+  useToast,
 } from "@chakra-ui/react";
 import {
   StudentsTable,
@@ -19,6 +20,7 @@ import { ApiService } from "../../Services/datasetAPIService";
 export const Members = () => {
   const [students, setStudents] = useState([]);
   const [faculties, setFaculties] = useState([]);
+  const toast = useToast();
   const [addMemberModal, setAddMemberModal] = useState({
     open: false,
     data: null,
@@ -66,7 +68,7 @@ export const Members = () => {
       console.error("Error adding Member:", error);
       toast({
         title: "Error adding member",
-        description: error?.response?.data?.error,
+        description: `These inputs are missing ${Object.keys(error?.response?.data)}`,
         status: "error",
         duration: 3000,
         isClosable: true,

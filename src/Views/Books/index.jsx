@@ -132,7 +132,7 @@ export const Books = () => {
       console.error("Error adding book:", error);
       toast({
         title: "Error Adding Book",
-        description: error?.response?.data?.error,
+        description: `These inputs are missing ${Object.keys(error?.response?.data)}`,
         status: "error",
         duration: 3000,
         isClosable: true,

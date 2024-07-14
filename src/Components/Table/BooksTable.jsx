@@ -39,12 +39,14 @@ export const BooksTable = ({
             <Th>Publication</Th>
             <Th>Shelf</Th>
             <Th>Available Copies</Th>
+            <Th>ISBN Code</Th>
             <Th>Status</Th>
           </Tr>
         </Thead>
         <Tbody>
           {data?.map((item, id) => (
             <Tr key={id}>
+              {console.log("isbn", item)}
               <Td>{item.book_id}</Td>
               <Td>{item.accession_date}</Td>
               <Td>{item.title}</Td>
@@ -53,6 +55,7 @@ export const BooksTable = ({
               <Td>{item.publication}</Td>
               <Td>{item.shelf_name}</Td>
               <Td>{item.available_copies}</Td>
+              <Td>{item.isbn}</Td>
               <Td>
                 <Flex gap={2} py={1} bgColor={"gray.100"}>
                   <IconButton

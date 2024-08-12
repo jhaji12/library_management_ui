@@ -44,7 +44,7 @@ export const ApiService = {
       });
       const today = new Date();
       const overdueBooks = response.data.results.filter(
-        (issue) => new Date(issue.due_date) < today
+        (issue) => new Date(issue.return_date) < today
       );
       return overdueBooks.length;
     } catch (error) {

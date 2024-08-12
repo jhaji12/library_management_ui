@@ -11,14 +11,9 @@ import {
   Tag,
   useToast,
 } from "@chakra-ui/react";
-import {
-  BooksTable,
-  LentBooksTable,
-  AddBookModal,
-  EditBookModal,
-  Search,
-} from "../../Components";
+import { BooksTable, LentBooksTable, AddBookModal, EditBookModal, Search } from "../../Components";
 import { ApiService } from "../../Services/datasetAPIService";
+import * as XLSX from "xlsx"; // Import xlsx for Excel export
 
 export const Books = () => {
   const [books, setBooks] = useState([]);
@@ -117,7 +112,7 @@ export const Books = () => {
         publication: "",
         shelf_name: "",
         available_copies: 0,
-        isbn: ""
+        isbn: "",
       });
       setAddBookModal({ open: false, data: null });
       fetchBooks();
@@ -242,7 +237,42 @@ export const Books = () => {
       });
     }
   };
-  
+
+  // Function to download data as Excel file based on the active tab
+  const handleDownloadExcel = () => {
+    let dataToExport = [];
+    let fileName = "data.xlsx";
+
+    if (activeTabIndex === 0) {
+      // Export books data
+      dataToExport = books;
+      fileName = "books_data.xlsx";
+    } else if (activeTabIndex === 1) {
+      // Export lent books data
+      dataToExport = lent;
+      fileName = "lent_books_data.xlsx";
+    } else if (activeTabIndex === 2) {
+      // Export returned books data
+      dataToExport = returned;
+      fileName = "returned_books_data.xlsx";
+    }
+
+    if (dataToExport.length > 0) {
+      const worksheet = XLSX.utils.json_to_sheet(dataToExport);
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+      XLSX.writeFile(workbook, fileName);
+    } else {
+      toast({
+        title: "No Data to Download",
+        description: "There is no data available to download.",
+        status: "info",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  };
+
   // Fetch data on initial component mount
   useEffect(() => {
     fetchBooks();
@@ -301,7 +331,7 @@ export const Books = () => {
           w="300px"
           pos="absolute"
           top={2}
-          right={32}
+          right={260}
           justifyContent={"center"}
         >
           <Search
@@ -314,10 +344,18 @@ export const Books = () => {
       )}
       <Button
         pos="absolute"
-        right={4}
+        right={8}
         onClick={() => setAddBookModal({ open: true, data: null })}
       >
         + Add Book
+      </Button>
+      <Button
+        pos="absolute"
+        right={130}
+        onClick={handleDownloadExcel}
+        colorScheme="teal"
+      >
+        Download Excel
       </Button>
       <AddBookModal
         isOpen={addBookModal.open}

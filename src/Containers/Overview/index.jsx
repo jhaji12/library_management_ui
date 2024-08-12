@@ -62,9 +62,11 @@ export const Overview = () => {
   const fetchTotalOverdueBooks = async () => {
     try {
       const issuedData = await ApiService.issues.getAllIssues();
+      console.log("abdkabfk", issuedData)
       const today = new Date();
+       // Filter out overdue books
       const overdueBooks = issuedData.filter(
-        (issue) => new Date(issue.due_date) < today
+        (issue) => new Date(issue.return_date) < today && !issue.returned
       );
       setTotalOverdueBooks(overdueBooks.length);
     } catch (error) {

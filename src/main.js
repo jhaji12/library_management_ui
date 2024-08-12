@@ -1,5 +1,6 @@
 const { app, BrowserWindow } = require("electron");
 const path = require("node:path");
+const { autoUpdater } = require("electron-updater");
 
 // run this as early in the main process as possible
 if (require("electron-squirrel-startup")) app.quit();
@@ -49,7 +50,21 @@ app.whenReady().then(() => {
       createWindow();
     }
   });
+
+  // Check for updates after creating the window
+  autoUpdater.checkForUpdatesAndNotify();
 });
+
+autoUpdater.on("update-available", () => {
+  log.info("Update available.");
+});
+
+autoUpdater.on("update-downloaded", (info) => {
+  log.info("Update downloaded; will install now");
+  // Quit and install the update after it is downloaded
+  autoUpdater.quitAndInstall();
+});
+
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits

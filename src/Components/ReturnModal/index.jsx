@@ -20,6 +20,8 @@ export const ReturnModal = ({
   returnData,
   handleInputChange,
   handleSubmit,
+  fetchOverdueAmount,
+  overdueAmount
 }) => {
   return (
     <Modal
@@ -62,6 +64,13 @@ export const ReturnModal = ({
               <option value={true}>Student</option>
               <option value={false}>Faculty</option>
             </Select>
+          </Box>
+          <Box mb={4}>
+            <Text>Overdue Amount:</Text>
+            <Text>{overdueAmount}</Text>
+          </Box>
+          <Box>
+            <Button onClick={fetchOverdueAmount}>Get Overdue Amount</Button>
           </Box>
         </ModalBody>
         <ModalFooter>

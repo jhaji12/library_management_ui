@@ -26,6 +26,8 @@ export const Overview = () => {
   const [issuedlist, setIssuedlist] = useState([]);
   const [totalOverdueBooks, setTotalOverdueBooks] = useState(0); // State for total overdue books
   const [totalMembers, setTotalMembers] = useState(0); // State for total members
+  const [overdueAmount, setOverdueAmount] = useState(0);
+
 
   const [formData, setFormData] = useState({
     book_id: "",
@@ -194,6 +196,37 @@ export const Overview = () => {
     }
   };
 
+  const fetchOverdueAmount = async (e) => {
+    e.preventDefault();
+    const { issuer_id } = returnData;
+    console.log("hereee", issuer_id);
+    const studentIssue = issuedlist.find(
+      (issue) => issue.adm_number == issuer_id
+    );
+    console.log("hereee2", studentIssue);
+    if (studentIssue) {
+      const overdueAmount = studentIssue.overdue_amount || 0;
+      setOverdueAmount(overdueAmount);  // Set the fetched overdue amount
+      toast({
+        title: "Overdue Amount Fetched",
+        description: `Overdue Amount for Issuer ID ${issuer_id}: ${overdueAmount}`,
+        status: "info",
+        duration: 5000,
+        isClosable: true,
+      });
+      console.log("hereee3", overdueAmount);
+    } else {
+      setOverdueAmount(0);  // Reset overdue amount if not found
+      toast({
+        title: "No Issuer Found",
+        description: `No issued book found for Issuer ID: ${issuer_id}`,
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+  };  
+
   return (
     <Flex direction={"column"} w="100%" h="100%" p={4}>
       <Flex justifyContent="space-between" alignItems="center" gap={4}>
@@ -308,10 +341,16 @@ export const Overview = () => {
       <ReturnModal
         isOpen={returnModal.open}
         data={returnModal.data}
-        onClose={() => setReturnModal({ open: false, data: null })}
+        onClose={() => {
+          setReturnModal({ open: false, data: null });
+          setReturnData({ book_id: "", issuer_id: "", is_student: true }); 
+          setOverdueAmount(0)// Reset form data
+        }}
         returnData={returnData}
         handleInputChange={handleReturnInputChange}
         handleSubmit={handleReturnSubmit}
+        fetchOverdueAmount={fetchOverdueAmount}
+        overdueAmount={overdueAmount}
       />
     </Flex>
   );
